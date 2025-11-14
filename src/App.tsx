@@ -110,36 +110,45 @@ function App() {
 
   if (showCake && permalinkData) {
     return (
-      <div className="min-h-screen">
-        {/* Header with name and time remaining */}
+      <div className="min-h-screen flex flex-col">
+        {/* Top controls - time and music */}
         <div className="absolute top-4 left-4 right-4 z-10">
-          <div className="max-w-4xl mx-auto bg-white bg-opacity-90 rounded-lg shadow-md p-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-purple-600">
-                🎂 Happy Birthday, {permalinkData.name}! 🎂
-              </h1>
+          <div className="max-w-4xl mx-auto flex justify-center gap-4">
+            <div className="text-sm text-gray-600 bg-white bg-opacity-90 rounded-lg shadow-md px-4 py-2">
+              {timeRemaining && <span>⏰ {timeRemaining}</span>}
             </div>
-            <div className="flex items-center gap-4">
-              <div className="text-sm text-gray-600">
-                {timeRemaining && <span>⏰ {timeRemaining}</span>}
-              </div>
-              <button
-                onClick={toggleMusic}
-                className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                  musicEnabled
-                    ? 'bg-purple-600 text-white hover:bg-purple-700'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-                aria-label={musicEnabled ? 'Stop music' : 'Play music'}
-              >
-                {musicEnabled ? '🔊 Music On' : '🔇 Music Off'}
-              </button>
-            </div>
+            <button
+              onClick={toggleMusic}
+              className={`px-4 py-2 rounded-md font-medium transition-colors shadow-md ${
+                musicEnabled
+                  ? 'bg-purple-600 text-white hover:bg-purple-700'
+                  : 'bg-white bg-opacity-90 text-gray-700 hover:bg-gray-100'
+              }`}
+              aria-label={musicEnabled ? 'Stop music' : 'Play music'}
+            >
+              {musicEnabled ? '🔊 Music On' : '🔇 Music Off'}
+            </button>
           </div>
         </div>
 
-        {/* Cake */}
-        <Cake ref={cakeRef} numberOfCandles={5} onAllCandlesBlown={handleAllCandlesBlown} />
+        {/* Birthday greeting above cake */}
+        <div className="flex-1 flex flex-col items-center justify-center pt-20 pb-8">
+          <div className="mb-6 text-center">
+            <h1 className="text-3xl sm:text-4xl font-bold text-purple-600">
+              🎂 Happy Birthday, {permalinkData.name}! 🎂
+            </h1>
+          </div>
+          
+          {/* Instructions */}
+          <div className="mb-6 text-center">
+            <p className="text-lg sm:text-xl text-gray-700 font-medium">
+              Make a wish and blow out the candles! 🕯️
+            </p>
+          </div>
+          
+          {/* Cake */}
+          <Cake ref={cakeRef} numberOfCandles={5} onAllCandlesBlown={handleAllCandlesBlown} />
+        </div>
 
         {/* Webcam Detector */}
         <div className="absolute bottom-8 left-4 right-4 z-10">
