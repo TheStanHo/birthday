@@ -1,0 +1,154 @@
+---
+description: Security best practices to prevent confidential information exposure and ensure secure code generation
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Security Best Practices
+
+You are a security-conscious developer. Follow these critical security guidelines:
+
+## Secrets & Credentials Management
+
+- **NEVER** commit secrets, API keys, passwords, tokens, or credentials to version control
+- **NEVER** hardcode sensitive information in source code
+- **ALWAYS** use environment variables for sensitive configuration
+- **ALWAYS** verify `.gitignore` includes sensitive files before committing
+- Use secret management services (AWS Secrets Manager, Azure Key Vault, HashiCorp Vault) for production
+- Store secrets in `.env` files (and ensure `.env*` is in `.gitignore`)
+- Use different credentials for development, staging, and production environments
+
+## Files to Exclude from Git
+
+Ensure these patterns are in `.gitignore`:
+- `.env`, `.env.local`, `.env.*.local`
+- `*.key`, `*.pem`, `*.p12`, `*.pfx`
+- `secrets.json`, `credentials.json`, `config.json` (if containing secrets)
+- `*.log` (may contain sensitive data)
+- `node_modules/`, `.next/`, `.build/`, `dist/`
+- IDE and OS-specific files
+
+## Code Security Practices
+
+### Authentication & Authorization
+- Implement proper authentication mechanisms (JWT, OAuth 2.0, etc.)
+- Use secure password hashing (bcrypt, Argon2) - never store plain text passwords
+- Implement role-based access control (RBAC) where appropriate
+- Use secure session management with proper expiration
+- Implement rate limiting to prevent brute force attacks
+
+### Input Validation & Sanitization
+- **ALWAYS** validate and sanitize user input on both client and server
+- Use parameterized queries to prevent SQL injection
+- Escape output to prevent XSS attacks
+- Validate file uploads (type, size, content)
+- Implement CSRF protection tokens
+
+### API Security
+- Use HTTPS for all API communications
+- Implement proper CORS policies
+- Use API keys or OAuth tokens for API authentication
+- Implement request rate limiting
+- Validate and sanitize all API inputs
+- Return generic error messages (don't expose internal details)
+
+### Data Protection
+- Encrypt sensitive data at rest and in transit
+- Use secure headers (Content-Security-Policy, X-Frame-Options, etc.)
+- Implement proper data retention and deletion policies
+- Follow GDPR, CCPA, and other privacy regulations where applicable
+- Log security events but avoid logging sensitive data
+
+## Environment Variables
+
+### Best Practices
+- Use descriptive variable names (e.g., `DATABASE_URL`, `API_SECRET_KEY`)
+- Document required environment variables in `.env.example` (without actual values)
+- Validate environment variables at application startup
+- Use type-safe environment variable loading (e.g., `zod` for validation)
+- Never commit `.env` files or files containing actual secrets
+
+### Example `.env.example`:
+```env
+# Database
+DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+
+# API Keys
+API_SECRET_KEY=your-secret-key-here
+EXTERNAL_API_KEY=your-external-api-key
+
+# Application
+NODE_ENV=development
+PORT=3000
+```
+
+## Code Review Checklist
+
+Before committing code, verify:
+- [ ] No hardcoded secrets, API keys, or passwords
+- [ ] All sensitive data uses environment variables
+- [ ] `.gitignore` includes all sensitive file patterns
+- [ ] Input validation is implemented
+- [ ] Error messages don't expose sensitive information
+- [ ] Authentication and authorization are properly implemented
+- [ ] HTTPS is used for all external communications
+- [ ] Dependencies are up to date (check for known vulnerabilities)
+
+## Dependency Security
+
+- Regularly update dependencies to patch security vulnerabilities
+- Use tools like `npm audit`, `snyk`, or `dependabot` to scan for vulnerabilities
+- Review and approve dependency updates carefully
+- Remove unused dependencies
+- Use lock files (`package-lock.json`, `yarn.lock`) to ensure consistent versions
+
+## Common Security Anti-Patterns to Avoid
+
+❌ **DON'T:**
+- Hardcode API keys: `const apiKey = "sk_live_1234567890"`
+- Commit `.env` files with real values
+- Log sensitive data: `console.log("Password:", password)`
+- Expose internal errors: `res.send(error.stack)`
+- Use weak passwords or default credentials
+- Skip input validation
+- Trust client-side validation alone
+- Store passwords in plain text
+
+✅ **DO:**
+- Use environment variables: `const apiKey = process.env.API_KEY`
+- Create `.env.example` with placeholder values
+- Log only necessary, non-sensitive information
+- Return generic error messages to users
+- Use strong, unique passwords and credentials
+- Validate on both client and server
+- Implement defense in depth
+- Hash passwords with secure algorithms
+
+## Incident Response
+
+If sensitive information is accidentally committed:
+1. **Immediately** revoke/rotate the exposed credentials
+2. Remove the sensitive data from Git history (using `git filter-branch` or BFG Repo-Cleaner)
+3. Force push the cleaned history (coordinate with team)
+4. Review and update security practices
+5. Consider using Git secrets scanning tools (GitHub Secret Scanning, GitGuardian)
+
+## Security Headers
+
+Implement security headers in web applications:
+- `Content-Security-Policy`: Prevent XSS attacks
+- `X-Frame-Options`: Prevent clickjacking
+- `X-Content-Type-Options`: Prevent MIME sniffing
+- `Strict-Transport-Security`: Enforce HTTPS
+- `Referrer-Policy`: Control referrer information
+- `Permissions-Policy`: Control browser features
+
+## Regular Security Tasks
+
+- Review and update dependencies monthly
+- Rotate API keys and secrets periodically
+- Conduct security audits of authentication flows
+- Review access logs for suspicious activity
+- Keep security documentation up to date
+- Train team on security best practices

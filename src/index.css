@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-pink-200 via-purple-200 to-yellow-200 min-h-screen;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  .cake-container {
+    @apply flex items-center justify-center min-h-screen p-4;
+  }
+  
+  .candle-flame {
+    @apply relative;
+    animation: flicker 0.3s infinite ease-in-out;
+    transform-origin: center bottom;
+  }
+  
+  .candle-flame-inner {
+    animation: flicker-inner 0.2s infinite ease-in-out alternate;
+  }
+}
+
+@keyframes flicker {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: translateX(-1px) translateY(-1px) scale(1.05);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(1px) translateY(-2px) scale(0.98);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateX(-0.5px) translateY(-1.5px) scale(1.02);
+    opacity: 0.97;
+  }
+}
+
+@keyframes flicker-inner {
+  0% {
+    transform: translateX(0) translateY(0) scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateX(0.5px) translateY(-0.5px) scale(1.1);
+    opacity: 1;
+  }
+}
+
