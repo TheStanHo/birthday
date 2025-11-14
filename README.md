@@ -88,11 +88,17 @@ npm install --save-dev gh-pages
 npm run deploy
 ```
 
-### Option 2: GitHub Actions (Automatic)
+### Option 2: GitHub Actions (Automatic) - Recommended
 
-1. Update `vite.config.ts` base path to match your repository name
+1. The GitHub Actions workflow (`.github/workflows/deploy.yml`) is already configured
 2. Push code to GitHub
-3. The GitHub Actions workflow (`.github/workflows/deploy.yml`) will automatically build and deploy on push to main
+3. Go to your repository → Settings → Pages
+4. Under "Source", select "GitHub Actions"
+5. The workflow will automatically build and deploy on push to `main` branch
+6. For custom domain `birthday.stanho.dev`:
+   - In Pages settings, add your custom domain
+   - Update your DNS to point to GitHub Pages (see GitHub's documentation)
+   - The `public/CNAME` file is already configured
 
 ## How It Works
 
