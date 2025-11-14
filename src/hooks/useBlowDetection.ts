@@ -26,7 +26,7 @@ export function useBlowDetection({
   const animationFrameRef = useRef<number | null>(null);
   const smoothedIntensityRef = useRef<number>(0);
   const baselineRef = useRef<number | null>(null);
-  const blowThreshold = 40; // Audio level threshold (0-100) - increased to reduce sensitivity
+  const blowThreshold = 50; // Audio level threshold (0-100) - increased for mobile devices
   const consecutiveSamplesRequired = 5; // Number of consecutive samples with high volume - increased for less sensitivity
   const consecutiveSamplesRef = useRef(0);
 
@@ -112,14 +112,16 @@ export function useBlowDetection({
         // Convert to percentage (0-100) with better scaling
         // Use a threshold - only show intensity if significantly above baseline
         // RMS values for blowing are typically 0.01-0.05 above baseline
-        const threshold = baseline * 0.15; // 15% above baseline is considered "blowing"
+        // Increased threshold for mobile devices (they tend to be more sensitive)
+        const threshold = baseline * 0.2; // 20% above baseline is considered "blowing" (increased from 15%)
         let rawVolume = 0;
         
         if (relativeVolume >= threshold) {
           // Above threshold - calculate intensity
           // Scale based on how much above threshold (0-100%)
+          // Reduced maxExcess for less sensitivity on mobile
           const excessVolume = relativeVolume - threshold;
-          const maxExcess = baseline * 0.4; // 40% above baseline is max (reduced for less sensitivity)
+          const maxExcess = baseline * 0.5; // 50% above baseline is max (increased threshold range)
           rawVolume = Math.min(100, (excessVolume / maxExcess) * 100);
         }
         
