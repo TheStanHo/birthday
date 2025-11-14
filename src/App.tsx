@@ -38,7 +38,7 @@ function App() {
     }
   }, [permalinkData, isExpired]);
 
-  const handlePermalinkGenerated = (permalink: string, name: string) => {
+  const handlePermalinkGenerated = (permalink: string, _name: string) => {
     // Navigate to the permalink URL to show the cake
     window.location.href = permalink;
   };

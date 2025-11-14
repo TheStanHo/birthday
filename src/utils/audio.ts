@@ -12,7 +12,7 @@ let audioInitialized = false;
  */
 function getAssetPath(path: string): string {
   // Vite handles base path automatically in production, but we need to handle it in dev
-  const base = import.meta.env.BASE_URL || '/';
+  const base = (import.meta.env?.BASE_URL as string) || '/';
   return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
+import { useState, useImperativeHandle, forwardRef } from 'react';
 
 interface CakeProps {
   numberOfCandles?: number;
