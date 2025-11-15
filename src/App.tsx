@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import NameForm from './components/NameForm';
 import Cake, { CakeHandle } from './components/Cake';
-import WebcamDetector from './components/WebcamDetector';
+import BlowDetector from './components/BlowDetector';
 import BirthdayMessage from './components/BirthdayMessage';
 import { usePermalink } from './hooks/usePermalink';
 import { playBlowSound, initAudio, playBackgroundMusic, stopBackgroundMusic } from './utils/audio';
@@ -11,7 +11,7 @@ function App() {
   const [showNameForm, setShowNameForm] = useState(!permalinkData);
   const [showCake, setShowCake] = useState(false);
   const [showBirthdayMessage, setShowBirthdayMessage] = useState(false);
-  const [webcamActive, setWebcamActive] = useState(false);
+  const [blowDetectorActive, setBlowDetectorActive] = useState(false);
   const [musicEnabled, setMusicEnabled] = useState(true);
   const cakeRef = useRef<CakeHandle>(null);
 
@@ -33,7 +33,7 @@ function App() {
       }
       // Auto-start microphone after a short delay
       setTimeout(() => {
-        setWebcamActive(true);
+        setBlowDetectorActive(true);
       }, 1000);
     }
   }, [permalinkData, isExpired]);
@@ -52,7 +52,7 @@ function App() {
 
   const handleAllCandlesBlown = () => {
     setShowBirthdayMessage(true);
-    setWebcamActive(false);
+    setBlowDetectorActive(false);
   };
 
   const toggleMusic = () => {
@@ -150,10 +150,14 @@ function App() {
         <Cake ref={cakeRef} numberOfCandles={5} onAllCandlesBlown={handleAllCandlesBlown} />
         </div>
 
-        {/* Webcam Detector */}
+        {/* Blow Detector */}
         <div className="absolute bottom-8 left-4 right-4 z-10">
           <div className="max-w-2xl mx-auto">
-            <WebcamDetector onBlowDetected={handleBlowDetected} isActive={webcamActive} />
+            <BlowDetector 
+              onBlowDetected={handleBlowDetected} 
+              isActive={blowDetectorActive}
+              onManualBlow={handleBlowDetected}
+            />
           </div>
         </div>
       </div>

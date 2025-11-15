@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { useMicrophone } from '../hooks/useMicrophone';
 import { useBlowDetection } from '../hooks/useBlowDetection';
 
-interface WebcamDetectorProps {
+interface BlowDetectorProps {
   onBlowDetected: () => void;
   isActive: boolean;
+  onManualBlow?: () => void;
 }
 
-export default function WebcamDetector({ onBlowDetected, isActive }: WebcamDetectorProps) {
+export default function BlowDetector({ onBlowDetected, isActive, onManualBlow }: BlowDetectorProps) {
   const { error, isAccessing, startMicrophone, stopMicrophone, stream } = useMicrophone();
   const { isDetecting, blowIntensity } = useBlowDetection({
     stream,
@@ -28,12 +29,25 @@ export default function WebcamDetector({ onBlowDetected, isActive }: WebcamDetec
 
   if (error) {
     return (
-      <div className="text-center p-4 bg-red-50 rounded-lg border border-red-200">
-        <p className="text-red-600 font-medium">Microphone Access Error</p>
-        <p className="text-sm text-red-500 mt-1">{error}</p>
-        <p className="text-xs text-gray-600 mt-2">
-          Please allow microphone access to blow out the candles!
-        </p>
+      <div className="text-center p-4">
+        {onManualBlow && (
+          <button
+            onClick={onManualBlow}
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-md font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-200 shadow-md mb-4 text-lg"
+            aria-label="Blow out a candle"
+          >
+            💨 Blow
+          </button>
+        )}
+        <div className="bg-red-50 rounded-lg border border-red-200 p-3">
+          <p className="text-red-600 font-medium text-sm">Microphone Access Error</p>
+          <p className="text-xs text-red-500 mt-1">{error}</p>
+          {onManualBlow && (
+            <p className="text-xs text-gray-600 mt-2">
+              Use the button above to blow out the candles manually.
+            </p>
+          )}
+        </div>
       </div>
     );
   }
