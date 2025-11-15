@@ -68,29 +68,39 @@ function App() {
 
   if (showNameForm) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <NameForm onPermalinkGenerated={handlePermalinkGenerated} />
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 flex items-center justify-center p-4">
+          <NameForm onPermalinkGenerated={handlePermalinkGenerated} />
+        </div>
+        <footer className="text-center py-4 text-xs text-gray-500">
+          Created by <a href="https://stanho.dev" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-700 underline">stanho.dev</a>
+        </footer>
       </div>
     );
   }
 
   if (isExpired && permalinkData) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg text-center">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Link Expired</h2>
-          <p className="text-gray-600 mb-6">
-            This birthday celebration link has expired. Links are valid for 24 hours.
-          </p>
-          <button
-            onClick={() => {
-              window.location.href = window.location.pathname;
-            }}
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-md font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-200"
-          >
-            Create New Celebration
-          </button>
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 flex items-center justify-center p-4">
+          <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Link Expired</h2>
+            <p className="text-gray-600 mb-6">
+              This birthday celebration link has expired. Links are valid for 24 hours.
+            </p>
+            <button
+              onClick={() => {
+                window.location.href = window.location.pathname;
+              }}
+              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-md font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-200"
+            >
+              Create New Celebration
+            </button>
+          </div>
         </div>
+        <footer className="text-center py-4 text-xs text-gray-500">
+          Created by <a href="https://stanho.dev" target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-700 underline">stanho.dev</a>
+        </footer>
       </div>
     );
   }
@@ -160,6 +170,11 @@ function App() {
             />
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="absolute bottom-2 left-0 right-0 text-center py-2 text-xs text-gray-400 z-0">
+          Created by <a href="https://stanho.dev" target="_blank" rel="noopener noreferrer" className="text-purple-500 hover:text-purple-600 underline">stanho.dev</a>
+        </footer>
       </div>
     );
   }

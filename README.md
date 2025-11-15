@@ -2,6 +2,12 @@
 
 A modern, interactive birthday celebration website where users can blow out candles on a virtual cake using their microphone!
 
+**Created by [stanho.dev](https://stanho.dev)**
+
+## About
+
+This project was created to bring joy and interactivity to birthday celebrations in the digital age. It combines modern web technologies with creative design to create a memorable experience that can be shared with friends and family, even when celebrating remotely.
+
 ## Features
 
 - 🎂 **Interactive Cake**: Beautiful animated cake with candles
@@ -160,6 +166,13 @@ npm run test:coverage
 ```
 
 See [TESTING.md](./TESTING.md) for detailed testing documentation.
+
+## About the Creator
+
+This project was created by **stanho.dev** - a developer passionate about creating interactive and engaging web experiences.
+
+- 🌐 Website: [stanho.dev](https://stanho.dev)
+- 📧 For questions or feedback, please open an issue on GitHub
 
 ## License
 

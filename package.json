@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "author": "stanho.dev",
+  "description": "A modern, interactive birthday celebration website with virtual candles and microphone blow detection",
+  "homepage": "https://stanho.dev",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
