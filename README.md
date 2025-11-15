@@ -1,23 +1,25 @@
 # 🎂 Birthday Celebration Website
 
-A modern, interactive birthday celebration website where users can blow out candles on a virtual cake using their webcam!
+A modern, interactive birthday celebration website where users can blow out candles on a virtual cake using their microphone!
 
 ## Features
 
 - 🎂 **Interactive Cake**: Beautiful animated cake with candles
-- 💨 **Webcam Blow Detection**: Blow into your webcam to extinguish candles
+- 💨 **Microphone Blow Detection**: Blow into your microphone to extinguish candles
 - 🔗 **Permalink Generation**: Create shareable links valid for 24 hours
 - 🎉 **Celebration Effects**: Confetti animation and sound effects
-- 🎵 **Background Music**: Optional birthday music
+- 🎵 **Background Music**: Optional birthday music with toggle control
 - 📱 **Responsive Design**: Works on desktop and mobile devices
 - 🚀 **GitHub Pages Ready**: Easy deployment to GitHub Pages
+- ✅ **Comprehensive Testing**: Full test suite with Vitest and React Testing Library
+- ⏰ **Time Remaining Display**: Shows countdown for link expiration
 
 ## Tech Stack
 
 - **React 18** with **TypeScript**
 - **Vite** for fast development and building
 - **Tailwind CSS** for modern styling
-- **Web APIs**: MediaDevices (webcam), Canvas (motion detection), Web Audio
+- **Web APIs**: MediaDevices (microphone), Web Audio API (blow detection)
 
 ## Getting Started
 
@@ -105,14 +107,21 @@ npm run deploy
 1. **Create Celebration**: Enter the birthday person's name and optionally a custom message
 2. **Generate Link**: A unique permalink is created with 24-hour expiration
 3. **Share Link**: Share the link with friends and family
-4. **Blow Candles**: When someone opens the link, they can blow into their webcam to extinguish candles
+4. **Blow Candles**: When someone opens the link, they can blow into their microphone to extinguish candles
 5. **Celebrate**: After all candles are blown, a celebration message appears with confetti!
 
 ## Browser Requirements
 
-- Modern browser with WebRTC support (Chrome, Firefox, Safari, Edge)
-- HTTPS required for webcam access (or localhost for development)
-- Camera permissions must be granted
+- Modern browser with Web Audio API support (Chrome, Firefox, Safari, Edge)
+- HTTPS required for microphone access (or localhost for development)
+- Microphone permissions must be granted
+
+## Accessibility
+
+- Keyboard navigation support
+- ARIA labels for screen readers
+- Visual feedback for all interactions
+- Works without audio files (graceful degradation)
 
 ## Customization
 
@@ -127,12 +136,30 @@ Edit `src/App.tsx`:
 
 Edit `src/hooks/useBlowDetection.ts`:
 ```typescript
-const blowThreshold = 50; // Increase for more sensitive, decrease for less
+const blowThreshold = 50; // Increase for less sensitive (harder to trigger), decrease for more sensitive
+const consecutiveSamplesRequired = 5; // Number of consecutive high-volume samples needed
 ```
 
 ### Customize Colors
 
 Edit `tailwind.config.js` to modify the color scheme.
+
+## Testing
+
+The project includes a comprehensive test suite using Vitest and React Testing Library.
+
+```bash
+# Run tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+```
+
+See [TESTING.md](./TESTING.md) for detailed testing documentation.
 
 ## License
 

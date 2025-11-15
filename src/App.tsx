@@ -115,21 +115,21 @@ function App() {
         <div className="absolute top-4 left-4 right-4 z-10">
           <div className="max-w-4xl mx-auto flex justify-center gap-4">
             <div className="text-sm text-gray-600 bg-white bg-opacity-90 rounded-lg shadow-md px-4 py-2">
-              {timeRemaining && <span>⏰ {timeRemaining}</span>}
-            </div>
-            <button
-              onClick={toggleMusic}
+                {timeRemaining && <span>⏰ {timeRemaining}</span>}
+              </div>
+              <button
+                onClick={toggleMusic}
               className={`px-4 py-2 rounded-md font-medium transition-colors shadow-md ${
-                musicEnabled
-                  ? 'bg-purple-600 text-white hover:bg-purple-700'
+                  musicEnabled
+                    ? 'bg-purple-600 text-white hover:bg-purple-700'
                   : 'bg-white bg-opacity-90 text-gray-700 hover:bg-gray-100'
-              }`}
-              aria-label={musicEnabled ? 'Stop music' : 'Play music'}
-            >
-              {musicEnabled ? '🔊 Music On' : '🔇 Music Off'}
-            </button>
+                }`}
+                aria-label={musicEnabled ? 'Stop music' : 'Play music'}
+              >
+                {musicEnabled ? '🔊 Music On' : '🔇 Music Off'}
+              </button>
+            </div>
           </div>
-        </div>
 
         {/* Birthday greeting above cake */}
         <div className="flex-1 flex flex-col items-center justify-center pt-20 pb-8">
@@ -144,10 +144,10 @@ function App() {
             <p className="text-lg sm:text-xl text-gray-700 font-medium">
               Make a wish and blow out the candles! 🕯️
             </p>
-          </div>
-          
-          {/* Cake */}
-          <Cake ref={cakeRef} numberOfCandles={5} onAllCandlesBlown={handleAllCandlesBlown} />
+        </div>
+
+        {/* Cake */}
+        <Cake ref={cakeRef} numberOfCandles={5} onAllCandlesBlown={handleAllCandlesBlown} />
         </div>
 
         {/* Webcam Detector */}
